@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Time Zone Clock</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>🌍 World Time Zone Clock</h1>
+            <p class="subtitle">Real-time clock for multiple time zones</p>
+        </header>
+
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Search or add timezone..."
+                    autocomplete="off"
+                >
+                <div id="searchResults" class="search-results"></div>
+            </div>
+            <button id="addBtn" class="btn btn-add" disabled>+ Add Timezone</button>
+            <button id="resetBtn" class="btn btn-reset">Reset to Default</button>
+        </div>
+
+        <!-- Timezone Selection Modal -->
+        <div id="modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Select a Timezone</h2>
+                    <button class="close-btn" id="closeModal">&times;</button>
+                </div>
+                <input 
+                    type="text" 
+                    id="modalSearch" 
+                    placeholder="Search timezones..."
+                    class="modal-search"
+                >
+                <div id="timezoneList" class="timezone-list"></div>
+            </div>
+        </div>
+
+        <!-- Clocks Display -->
+        <div class="clocks-grid" id="clocksGrid">
+            <!-- Clock cards will be inserted here -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="empty-state hidden">
+            <p>📍 No timezones selected yet.</p>
+            <p>Click "+ Add Timezone" to get started!</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
