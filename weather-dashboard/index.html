@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1>🌤️ Weather Dashboard</h1>
+                <p class="header-subtitle">Real-time weather forecasts worldwide</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Search Section -->
+            <section class="search-section">
+                <div class="search-container">
+                    <div class="search-box">
+                        <input
+                            type="text"
+                            id="searchInput"
+                            class="search-input"
+                            placeholder="Search for a city..."
+                            autocomplete="off"
+                        >
+                        <button id="searchBtn" class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div id="searchResults" class="search-results hidden"></div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="currentLocationBtn" class="btn btn-location" title="Use my location">
+                        <i class="fas fa-location-crosshairs"></i> Current Location
+                    </button>
+                    <button id="settingsBtn" class="btn btn-settings" title="Settings">
+                        <i class="fas fa-cog"></i> Settings
+                    </button>
+                </div>
+            </section>
+
+            <!-- Settings Modal -->
+            <div id="settingsModal" class="modal hidden">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Settings</h2>
+                        <button class="close-btn" id="closeSettings">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="setting-item">
+                            <label for="tempUnit">Temperature Unit:</label>
+                            <select id="tempUnit" class="select-input">
+                                <option value="celsius">Celsius (°C)</option>
+                                <option value="fahrenheit">Fahrenheit (°F)</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label for="windUnit">Wind Speed Unit:</label>
+                            <select id="windUnit" class="select-input">
+                                <option value="ms">Meters/Second (m/s)</option>
+                                <option value="kmh">Kilometers/Hour (km/h)</option>
+                                <option value="mph">Miles/Hour (mph)</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label for="autoRefresh">Auto Refresh:</label>
+                            <select id="autoRefresh" class="select-input">
+                                <option value="off">Off</option>
+                                <option value="5">Every 5 minutes</option>
+                                <option value="10">Every 10 minutes</option>
+                                <option value="30">Every 30 minutes</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="savSettingsBtn" class="btn btn-primary">Save Settings</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current Weather Section -->
+            <section id="currentWeather" class="weather-section hidden">
+                <div class="current-weather-card">
+                    <div class="weather-header">
+                        <div class="location-info">
+                            <h2 id="cityName">--</h2>
+                            <p id="currentDate" class="date-time">--</p>
+                        </div>
+                        <div class="weather-temp">
+                            <span id="temperature" class="temp-value">--</span>
+                            <span class="temp-unit">°C</span>
+                        </div>
+                    </div>
+
+                    <div class="weather-main">
+                        <div class="weather-icon">
+                            <img id="weatherIcon" src="" alt="Weather icon">
+                        </div>
+                        <div class="weather-description">
+                            <p id="weatherDesc" class="description">--</p>
+                            <p id="feelsLike" class="feels-like">Feels like --°</p>
+                        </div>
+                    </div>
+
+                    <div class="weather-details">
+                        <div class="detail-card">
+                            <i class="fas fa-tint"></i>
+                            <div class="detail-content">
+                                <span class="detail-label">Humidity</span>
+                                <span id="humidity" class="detail-value">--%</span>
+                            </div>
+                        </div>
+                        <div class="detail-card">
+                            <i class="fas fa-wind"></i>
+                            <div class="detail-content">
+                                <span class="detail-label">Wind Speed</span>
+                                <span id="windSpeed" class="detail-value">-- m/s</span>
+                            </div>
+                        </div>
+                        <div class="detail-card">
+                            <i class="fas fa-compress"></i>
+                            <div class="detail-content">
+                                <span class="detail-label">Pressure</span>
+                                <span id="pressure" class="detail-value">-- hPa</span>
+                            </div>
+                        </div>
+                        <div class="detail-card">
+                            <i class="fas fa-eye"></i>
+                            <div class="detail-content">
+                                <span class="detail-label">Visibility</span>
+                                <span id="visibility" class="detail-value">-- km</span>
+                            </div>
+                        </div>
+                        <div class="detail-card">
+                            <i class="fas fa-sunrise"></i>
+                            <div class="detail-content">
+                                <span class="detail-label">Sunrise</span>
+                                <span id="sunrise" class="detail-value">--:--</span>
+                            </div>
+                        </div>
+                        <div class="detail-card">
+                            <i class="fas fa-sunset"></i>
+                            <div class="detail-content">
+                                <span class="detail-label">Sunset</span>
+                                <span id="sunset" class="detail-value">--:--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Forecast Section -->
+            <section id="forecastSection" class="forecast-section hidden">
+                <div class="section-header">
+                    <h3>5-Day Forecast</h3>
+                </div>
+                <div id="forecastContainer" class="forecast-container">
+                    <!-- Forecast cards will be inserted here -->
+                </div>
+            </section>
+
+            <!-- Saved Cities Section -->
+            <section id="savedCitiesSection" class="saved-cities-section">
+                <div class="section-header">
+                    <h3>Saved Cities</h3>
+                </div>
+                <div id="savedCitiesContainer" class="cities-grid">
+                    <!-- Saved city cards will be inserted here -->
+                </div>
+                <div id="emptySavedCities" class="empty-state">
+                    <i class="fas fa-bookmark"></i>
+                    <p>No saved cities yet. Search for a city and save it!</p>
+                </div>
+            </section>
+
+            <!-- Error Message -->
+            <div id="errorMessage" class="error-message hidden">
+                <i class="fas fa-exclamation-circle"></i>
+                <span id="errorText">Error loading weather data</span>
+                <button class="error-close" id="closeError">&times;</button>
+            </div>
+
+            <!-- Loading Spinner -->
+            <div id="loadingSpinner" class="loading-spinner hidden">
+                <div class="spinner"></div>
+                <p>Loading weather data...</p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Weather data provided by <a href="https://openweathermap.org" target="_blank">OpenWeatherMap</a></p>
+            <p class="last-updated">Last updated: <span id="lastUpdated">--</span></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
